@@ -1,0 +1,51 @@
+﻿<Window x:Class="WeatherApp.View.WeatherWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeatherApp.View"
+        mc:Ignorable="d"
+        Title="WeatherWindow" Height="600" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="20">
+            <TextBlock Text="Search for a city:" />
+            <TextBox />
+            <Button Content="Search" Margin="0 10" />
+            <ListView>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        <Grid Grid.Row="1" Background="#4392f1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="0 10">
+                <TextBlock Text="San Francisco"
+                           Foreground="#f4f4f8"
+                           FontSize="20"
+                           Margin="20 0" />
+                <TextBlock Text="overcast"
+                           Foreground="#f4f4f8"
+                           FontSize="18"
+                           Margin="20 0"></TextBlock>
+            </StackPanel>
+            <TextBlock Text="11 C"
+                       Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Foreground="#f4f4f8"
+                       FontSize="30"
+                       Margin="20 0"></TextBlock>
+        </Grid>
+    </Grid>
+</Window>

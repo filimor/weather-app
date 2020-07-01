@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using WeatherApp.Model;
 
 namespace WeatherApp.ViewModel
@@ -47,6 +48,29 @@ namespace WeatherApp.ViewModel
             }
         }
 
+        public WeatherVM()
+        {
+            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            {
+                SelectedCity = new City
+                {
+                    LocalizedName = "New York"
+                };
+
+                CurrentConditions = new CurrentConditions
+                {
+                    WeatherText = "Partly cloudy",
+                    Temperature = new Temperature
+                    {
+                        Metric = new Units
+                        {
+                            Value = 21
+                        }
+                    }
+                };
+            }
+
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

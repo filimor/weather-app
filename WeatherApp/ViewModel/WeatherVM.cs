@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -46,9 +47,15 @@ namespace WeatherApp.ViewModel
             set
             {
                 selectedCity = value;
-                OnPropertyChanged("SelectedCity");
+                if (selectedCity!=null)
+                {
+                    OnPropertyChanged("SelectedCity");
+                    GetCurrentConditions();
+                }
             }
         }
+
+        public ObservableCollection<City> Cities { get; set; }
 
         public SearchCommand SearchCommand { get; set; }
 
@@ -68,18 +75,32 @@ namespace WeatherApp.ViewModel
                     {
                         Metric = new Units
                         {
-                            Value = 21
+                            Value = "21"
                         }
                     }
                 };
             }
 
             SearchCommand = new SearchCommand(this);
+            Cities = new ObservableCollection<City>();
+        }
+
+        private async void GetCurrentConditions()
+        {
+            Query = string.Empty;
+            CurrentConditions = await AccuWeatherHelper.GetCurrentConditions(SelectedCity.Key);
+            Cities.Clear();
         }
 
         public async void MakeQuery()
         {
             var cities = await AccuWeatherHelper.GetCities(Query);
+
+            Cities.Clear();
+            foreach (var city in cities)
+            {
+                Cities.Add(city);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
